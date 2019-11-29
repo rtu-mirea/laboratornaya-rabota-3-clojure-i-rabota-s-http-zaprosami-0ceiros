@@ -19,9 +19,28 @@
   []
   (:data (get-metrics-with-http-info)))
 
-;; Задание 1
-(defn task1 [metrics]
-  (filter (fn [a] (< (get a :cpuTemp) 2)) metrics)
+;; Задание 1-1
+(defn task11 [metrics]
+  (filter (fn [a] (> (get a :cpuTemp) 2)) metrics)
   )
 ;; (metrics-server.api.hardware/task1 (metrics-server.api.hardware/get-metrics))
 
+;; Задание 1-2
+(defn task12 [metrics]
+  (/ (reduce + (map (fn [a] (get a :cpuTemp)) metrics)) (count metrics))
+  )
+
+;; (metrics-server.api.hardware/task12 (metrics-server.api.hardware/get-metrics))
+
+;; Задание 1-3
+(defn task13 [metrics]
+  (/ (reduce + (map (fn [a] (get a :cpuLoad)) metrics)) (count metrics))
+  )
+
+;; (metrics-server.api.hardware/task13 (metrics-server.api.hardware/get-metrics))
+
+(defn -main [& args]
+  (println (task11 (get-metrics)))
+  (println (task12 (get-metrics)))
+  (println (task13 (get-metrics)))
+  )
